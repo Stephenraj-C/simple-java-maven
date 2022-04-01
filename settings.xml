@@ -19,7 +19,7 @@
   <mirrors>
     <mirror>
       <id>central</id>
-      <name>mymaven-central</name>
+      <name>central</name>
       <url>http://35.172.141.147:8081/repository/mymaven-group/</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
