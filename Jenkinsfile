@@ -1,27 +1,33 @@
-pipeline{
-   agent {
+pipeline
+{
+    agent 
+    {
        label "Slave2"
-   }
-    tools {
+    }
+    tools
+    {
         maven 'Maven'
     }
-   // stages{
-   //     stage("code checkout"){
-   //         steps{
-   //             echo "========checking out code from github repo========"
+    stages
+    {
+    //     stage("code checkout"){
+    //         steps{
+    //             echo "========checking out code from github repo========"
     //            checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '2d64d980-832f-4dd0-b22d-b5cb971e0a7a', url: 'https://github.com/vcroshan/simple-java-maven-app.git']]])
-   //         }
-   //         post{
-   //             success{
-   //                 echo "========Code checkout from Github repo completed========"
-   //             }
-   //             failure{
-   //                 echo "========Code checkout from Github repo failed========"
-   //             }
-   //         }
-   //     }
-        stage ("execute script") {
-            steps{
+    //         }
+    //         post{
+    //             success{
+    //                 echo "========Code checkout from Github repo completed========"
+    //             }
+    //             failure{
+    //                 echo "========Code checkout from Github repo failed========"
+    //             }
+    //         }
+    //     }
+        stage ("execute script") 
+        {
+            steps
+            {
                 echo "Workspace:- $WORKSPACE"
                 echo "Job Name :- $JOB_NAME"
                 echo "Build ID :- $BUILD_ID"
@@ -30,30 +36,40 @@ pipeline{
                 echo "InputParam2 : $Inputparam2"
             }
         }
-        stage("Build") {
-            steps{
+        stage("Build") 
+        {
+            steps
+            {
                 sh 'mvn -DskipTests clean package'
             }
-            post{
-                success {
+            post
+            {
+                success 
+                {
                     echo "=========Build completed successfully============="
                     
                 }
-                failure {
+                failure
+                 {
                     echo "==========Build failed=========="
                 }
             }
         }
-        stage("Unit Testing") {
-            steps{
+        stage("Unit Testing") 
+        {
+            steps
+            {
                 sh 'mvn test'
             }
-            post {
-                success{
+            post 
+            {
+                success
+                {
                     echo "======Unit testing completed successfull, publishing report========="
                     junit 'target/surefire-reports/*.xml'
                 }
-                failure{
+                failure
+                {
                     echo "==========unit test cases failed, report not published===="
                 }
             }
@@ -82,14 +98,18 @@ pipeline{
         
     
     }
-    post{
-        always{
+    post
+    {
+        always
+        {
             echo "========always========"
         }
-        success{
+        success
+        {
             echo "========pipeline executed successfully ========"
         }
-        failure{
+        failure
+        {
             echo "========pipeline execution failed========"
         }
     }
